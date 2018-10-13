@@ -7,21 +7,14 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @Table(name = "copsboot_user")
 public class User extends AbstractEntity<UserId> {
-
-    @Id
-    private UUID id;
-
     private String email;
-
     private String password;
 
     @ElementCollection(fetch = FetchType.EAGER)
@@ -29,10 +22,11 @@ public class User extends AbstractEntity<UserId> {
     @NotNull
     private Set<UserRole> roles;
 
+    @SuppressWarnings("unused")
     protected User() {
     }
 
-    public User(UserId id, String email, String password, Set<UserRole> roles) {
+    User(UserId id, String email, String password, Set<UserRole> roles) {
         super(id);
         this.email = email;
         this.password = password;
@@ -49,5 +43,15 @@ public class User extends AbstractEntity<UserId> {
 
     public Set<UserRole> getRoles() {
         return roles;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

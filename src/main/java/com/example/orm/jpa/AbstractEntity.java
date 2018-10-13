@@ -19,7 +19,6 @@ public abstract class AbstractEntity<T extends EntityId> implements Entity<T> {
     @EmbeddedId
     private T id;
 
-    @ArtifactForFramework
     protected AbstractEntity() {
     }
 

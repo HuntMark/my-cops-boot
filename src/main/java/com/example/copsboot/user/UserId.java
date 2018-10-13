@@ -6,10 +6,11 @@ import java.util.UUID;
 
 public class UserId extends AbstractEntityId<UUID> {
 
+    @SuppressWarnings("unused")
     protected UserId() {
     }
 
-    public UserId(UUID id) {
+    UserId(UUID id) {
         super(id);
     }
 }

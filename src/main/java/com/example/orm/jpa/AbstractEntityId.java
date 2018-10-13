@@ -12,7 +12,6 @@ public abstract class AbstractEntityId<T extends Serializable>
 
     private T id;
 
-    @ArtifactForFramework
     protected AbstractEntityId() {
     }
 
