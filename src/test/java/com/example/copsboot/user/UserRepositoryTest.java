@@ -18,7 +18,7 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.UUID;
 
-@ActiveProfiles("test")
+@ActiveProfiles("test-jpa")
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class UserRepositoryTest {
