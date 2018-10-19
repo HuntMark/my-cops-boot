@@ -1,0 +1,3 @@
+copsboot-security:
+  mobile-app-client-id: test-client
+  mobile-app-client-secret: test-secret

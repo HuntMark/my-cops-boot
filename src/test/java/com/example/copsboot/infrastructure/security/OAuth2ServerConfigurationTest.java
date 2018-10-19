@@ -36,8 +36,8 @@ public class OAuth2ServerConfigurationTest {
     public void testGetAccessTokenAsOfficer() throws Exception {
         userService.createOfficer(Users.OFFICER_EMAIL, Users.OFFICER_PASSWORD);
 
-        String clientId = "copsboot-mobile-client";
-        String clientSecret = "ccUyb6vS4S8nxfbKPCrN";
+        String clientId = "test-client";
+        String clientSecret = "test-secret";
 
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("grant_type", "password");
