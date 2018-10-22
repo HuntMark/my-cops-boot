@@ -17,6 +17,7 @@ import com.example.copsboot.user.UserService;
 import com.example.copsboot.user.Users;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,6 +79,7 @@ public class UserRestControllerTest {
         verify(service).createOfficer(email, password);
     }
 
+    @Ignore
     @Test
     public void givenAuthenticatedAsOfficer_whenAskingMyDetails_detailsReturned() throws Exception {
         String accessToken = obtainAccessToken(mvc, Users.OFFICER_EMAIL, Users.OFFICER_PASSWORD);
