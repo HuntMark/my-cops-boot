@@ -14,10 +14,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.response
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.example.copsboot.infrastructure.security.ResourceServerConfiguration;
-import com.example.copsboot.infrastructure.security.SecurityConfiguration;
 import com.example.copsboot.infrastructure.security.SecurityHelperForMockMvc;
-import com.example.copsboot.infrastructure.security.StubUserDetailsService;
 import com.example.copsboot.user.UserService;
 import com.example.copsboot.user.Users;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,17 +25,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Import;
 import org.springframework.restdocs.JUnitRestDocumentation;
 import org.springframework.restdocs.mockmvc.RestDocumentationResultHandler;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -47,8 +36,7 @@ import org.springframework.web.context.WebApplicationContext;
 import java.util.Optional;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(UserRestController.class)
-@ActiveProfiles("test")
+@CopsbootControllerTest(UserRestController.class)
 public class UserRestControllerDocumentation {
 
     @Rule
@@ -106,25 +94,5 @@ public class UserRestControllerDocumentation {
                                         .description("Roles")
                         )
                 ));
-    }
-
-    @TestConfiguration
-    @Import(ResourceServerConfiguration.class)
-    static class TestConfig {
-
-        @Bean
-        public UserDetailsService userDetailsService() {
-            return new StubUserDetailsService();
-        }
-
-        @Bean
-        public TokenStore tokenStore() {
-            return new InMemoryTokenStore();
-        }
-
-        @Bean
-        public SecurityConfiguration securityConfiguration() {
-            return new SecurityConfiguration();
-        }
     }
 }
