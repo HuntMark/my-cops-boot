@@ -1,3 +1,10 @@
 copsboot-security:
   mobile-app-client-id: copsboot-mobile-client
   mobile-app-client-secret: ccUyb6vS4S8nxfbKPCrN
+
+spring:
+  flyway:
+    locations: classpath:db/migration/h2
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
