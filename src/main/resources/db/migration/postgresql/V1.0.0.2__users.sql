@@ -1,16 +1,9 @@
-CREATE TABLE copsboot_user (
- id UUID NOT NULL,
- email VARCHAR(255),
- password VARCHAR(255),
- PRIMARY KEY (id)
+create table copsboot_user (
+id uuid not null,
+email varchar(255),
+password varchar(255),
+primary key (id)
 );
 
-CREATE TABLE user_roles (
- user_id UUID NOT NULL,
- roles VARCHAR(255)
-);
-
-ALTER TABLE user_roles
- ADD CONSTRAINT FK7je59ku3x462eqxu4ss3das1s
-FOREIGN KEY (user_id)
-REFERENCES copsboot_user;
+create table user_roles (user_id uuid not null, roles varchar(255));
+alter table user_roles add constraint FK7je59ku3x462eqxu4ss3das1s foreign key (user_id) references copsboot_user;
