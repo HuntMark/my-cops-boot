@@ -1,0 +1,16 @@
+copsboot-security:
+  mobile-app-client-id: test-client
+  mobile-app-client-secret: test-secret
+
+spring:
+  datasource:
+    url: jdbc:tc:postgresql://localhost/copsbootdb
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+    username: user
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+  flyway:
+    locations: classpath:db/migration/postgresql

@@ -29,7 +29,7 @@ public class Application {
         return new InMemoryTokenStore();
     }
 
-    @Profile("!test-jpa")
+    @Profile({"dev", "local"})
     @Bean
     @Primary
     public AuthenticationManager authenticationManager(
