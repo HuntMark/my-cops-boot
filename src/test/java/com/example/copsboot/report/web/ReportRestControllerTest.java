@@ -6,7 +6,7 @@ import static com.example.copsboot.infrastructure.security.SecurityHelperForMock
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -21,6 +21,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -43,20 +44,28 @@ public class ReportRestControllerTest {
     @Test
     public void officerIsAbleToPostAReport() throws Exception {
         String accessToken = obtainAccessToken(mockMvc, Users.OFFICER_EMAIL, Users.OFFICER_PASSWORD);
-        ZonedDateTime dateTime = ZonedDateTime.parse("2018-04-11T22:59:03.189+02:00");
+        String dateTime = "2018-04-11T22:59:03.189+02:00";
         String description = "This is a test report description.";
-        CreateReportParameters parameters = new CreateReportParameters(dateTime, description, false, 0);
-        when(service.createReport(eq(Users.officer().getId()), any(ZonedDateTime.class), eq(description)))
-                .thenReturn(new Report(new ReportId(UUID.randomUUID()), Users.officer(), dateTime, description));
+        MockMultipartFile image = createMockImage();
+        CreateReportParameters parameters = new CreateReportParameters(ZonedDateTime.parse(dateTime), description, false, 0, image);
+        when(service.createReport(eq(Users.officer().getId()), any(ZonedDateTime.class), eq(description), any(MockMultipartFile.class)))
+                .thenReturn(new Report(new ReportId(UUID.randomUUID()), Users.officer(), ZonedDateTime.parse(dateTime), description));
 
-        mockMvc.perform(post("/api/reports")
+        mockMvc.perform(multipart("/api/reports")
+                .file(image)
                 .header(HEADER_AUTHORIZATION, bearer(accessToken))
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(objectMapper.writeValueAsString(parameters)))
+                .content(objectMapper.writeValueAsString(parameters))
+                .param("dateTime", dateTime)
+                .param("description", description))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("id").exists())
                 .andExpect(jsonPath("reporter").value(Users.OFFICER_EMAIL))
                 .andExpect(jsonPath("dateTime").value("2018-04-11T22:59:03.189+02:00"))
                 .andExpect(jsonPath("description").value(description));
+    }
+
+    private MockMultipartFile createMockImage() {
+        return new MockMultipartFile("image", "picture.png", "image/png", new byte[] {1, 2, 3});
     }
 }

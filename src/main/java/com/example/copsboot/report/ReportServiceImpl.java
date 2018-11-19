@@ -5,6 +5,7 @@ import com.example.copsboot.user.UserNotFoundException;
 import com.example.copsboot.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.ZonedDateTime;
 
@@ -21,7 +22,7 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public Report createReport(UserId userId, ZonedDateTime dateTime, String description) {
+    public Report createReport(UserId userId, ZonedDateTime dateTime, String description, MultipartFile image) {
         return reportRepository.save(new Report(reportRepository.nextId(),
                 userRepository.findById(userId.getId()).orElseThrow(() -> new UserNotFoundException(userId)), dateTime, description));
     }
