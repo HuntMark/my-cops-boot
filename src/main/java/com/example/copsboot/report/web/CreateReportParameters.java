@@ -11,5 +11,7 @@ import java.time.ZonedDateTime;
 @NoArgsConstructor
 public class CreateReportParameters {
     private ZonedDateTime dateTime;
+
+    @ValidReportDescription
     private String description;
 }
