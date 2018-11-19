@@ -14,4 +14,8 @@ public class CreateReportParameters {
 
     @ValidReportDescription
     private String description;
+
+    private boolean trafficIncident;
+
+    private int numberOfInvolvedCars;
 }
