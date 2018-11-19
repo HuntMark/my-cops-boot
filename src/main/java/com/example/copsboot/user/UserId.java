@@ -10,7 +10,7 @@ public class UserId extends AbstractEntityId<UUID> {
     protected UserId() {
     }
 
-    UserId(UUID id) {
+    public UserId(UUID id) {
         super(id);
     }
 }
